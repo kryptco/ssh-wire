@@ -1,0 +1,13 @@
+[package]
+authors = ["Kevin King <4kevinking@gmail.com>"]
+name = "ssh-wire"
+version = "0.1.0"
+
+[dependencies]
+rand = "*"
+serde = "*"
+serde_codegen_internals = "*"
+serde_derive = "*"
+
+[dependencies.byteorder]
+path = "../byteorder"
