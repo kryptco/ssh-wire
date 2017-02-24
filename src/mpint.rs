@@ -1,3 +1,5 @@
+use der::*;
+
 use std::fmt;
 use std::convert::AsRef;
 
@@ -15,6 +17,25 @@ pub struct MPUint {
 impl AsRef<Vec<u8>> for MPUint {
     fn as_ref(&self) -> &Vec<u8> {
         &self.be_bytes
+    }
+}
+
+impl MPUint {
+    pub fn to_der(&self) -> Vec<u8> {
+        let INTEGER_TAG : u8 = 2;
+        let mut der_out = vec![INTEGER_TAG];
+        if self.be_bytes.len() == 0 {
+            der_out.extend(&[0x01, 0x00]);
+            return der_out;
+        }
+        if (self.be_bytes[0] & 0x80) == 0x80 { 
+            der_out.extend(encode_length_octet(self.be_bytes.len() + 1));
+            der_out.push(0x00);
+        } else {
+            der_out.extend(encode_length_octet(self.be_bytes.len()));
+        }
+        der_out.extend(&self.be_bytes);
+        der_out
     }
 }
 
@@ -41,3 +62,15 @@ impl Deserialize for MPUint {
         }
 }
 
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn mpuint_der_works() {
+        assert!(MPUint{be_bytes: vec![]}.to_der() == vec![0x02, 0x01, 0x00]);
+        assert!(MPUint{be_bytes: vec![0x01]}.to_der() == vec![0x02, 0x01, 0x01]);
+        assert!(MPUint{be_bytes: vec![127]}.to_der() == vec![0x02, 0x01, 0x7f]);
+        assert!(MPUint{be_bytes: vec![128]}.to_der() == vec![0x02, 0x02, 0x00, 0x80]);
+        assert!(MPUint{be_bytes: vec![1, 0]}.to_der() == vec![0x02, 0x02, 0x01, 0x00]);
+    }
+}

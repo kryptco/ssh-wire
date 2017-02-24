@@ -1,4 +1,5 @@
 use mpint::*;
+use der::*;
 
 #[derive(Deserialize)]
 pub struct PublicKeyHeader {
@@ -38,6 +39,24 @@ pub struct ECDSAPublicKey {
     _type: String,
     curve: String,
     public_key: Vec<u8>,
+}
+
+#[derive(Deserialize)]
+pub struct ECCurvePoint {
+    x: MPUint,
+    y: MPUint,
+}
+
+impl ECCurvePoint {
+    pub fn to_der(&self) -> Vec<u8> {
+        let SEQUENCE_TAG = 0x30;
+        let mut der_out = vec![SEQUENCE_TAG];
+        let mut content = self.x.to_der();
+        content.extend(self.y.to_der());
+        der_out.extend(encode_length_octet(content.len()));
+        der_out.extend(content);
+        der_out
+    }
 }
 
 #[derive(Deserialize)]
