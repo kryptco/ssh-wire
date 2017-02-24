@@ -16,7 +16,6 @@ impl RSAPublicKey {
     fn verify(&self, signature: &Signature, message: &[u8]) -> bool {
         use ring;
         use untrusted::Input;
-        let digest = ring::digest::digest(&ring::digest::SHA1, message);
         let res = ring::signature::primitive::verify_rsa(
             &ring::signature::RSA_PKCS1_2048_8192_SHA1,
             (Input::from(self.modulus.as_ref()), Input::from(self.public_exponent.as_ref())),
