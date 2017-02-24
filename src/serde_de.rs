@@ -24,6 +24,7 @@ pub enum ErrorKind {
     Utf8(std::str::Utf8Error),
     Custom(String),
 }
+
 use self::ErrorKind::*;
 
 impl de::Error for Error {

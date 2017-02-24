@@ -4,10 +4,13 @@ name = "ssh-wire"
 version = "0.1.0"
 
 [dependencies]
+base64 = "*"
 rand = "*"
+ring = "*"
 serde = "*"
 serde_codegen_internals = "*"
 serde_derive = "*"
+untrusted = "*"
 
 [dependencies.byteorder]
 path = "../byteorder"
