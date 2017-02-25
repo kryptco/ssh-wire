@@ -11,7 +11,7 @@ use serde::de::{Deserialize,Deserializer};
 //  causing length checks to fail.
 #[derive(Debug)]
 pub struct MPUint {
-    be_bytes: Vec<u8>,
+    pub be_bytes: Vec<u8>,
 }
 
 impl AsRef<Vec<u8>> for MPUint {
@@ -36,6 +36,15 @@ impl MPUint {
         }
         der_out.extend(&self.be_bytes);
         der_out
+    }
+    pub fn padded_to_at_least(&self, n_bytes: usize) -> Vec<u8> {
+        if n_bytes <= self.be_bytes.len() {
+            self.be_bytes.clone()
+        } else {
+            let mut padded = vec![0; n_bytes - self.be_bytes.len()];
+            padded.extend(&self.be_bytes);
+            padded
+        }
     }
 }
 

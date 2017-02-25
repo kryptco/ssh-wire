@@ -10,4 +10,5 @@ extern crate base64;
 pub mod der;
 pub mod serde_de;
 pub mod mpint;
+pub mod ecdsa;
 pub mod ssh;
