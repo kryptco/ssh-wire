@@ -15,5 +15,9 @@ untrusted = "*"
 byteorder = "*"
 
 [lib]
-crate-type = ["staticlib"]
+crate-type = ["staticlib", "cdylib"]
 name = "sshwire"
+
+[target.'cfg(target_os="android")'.dependencies.jni]
+git = "https://github.com/prevoty/jni-rs"
+default-features = false
