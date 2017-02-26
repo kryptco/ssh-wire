@@ -12,9 +12,7 @@ serde = "*"
 serde_codegen_internals = "*"
 serde_derive = "*"
 untrusted = "*"
-
-[dependencies.byteorder]
-path = "../byteorder"
+byteorder = "*"
 
 [lib]
 crate-type = ["staticlib"]
