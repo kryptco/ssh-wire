@@ -37,7 +37,7 @@ pub mod android {
     use self::jni::strings::JNIString;
 
     #[no_mangle]
-    pub unsafe extern "C" fn Java_co_krypt_kryptonite_protocol_HostAuth_verifySessionID(env: JNIEnv, _: JClass, pubkey : JNIString, signature: JNIString, session_id: JNIString) -> jboolean {
+    pub unsafe extern "C" fn Java_co_krypt_kryptonite_protocol_HostAuth_verifySessionID(env: JNIEnv, _: JClass, pubkey : JString, signature: JString, session_id: JString) -> jboolean {
         0
     }
 }
