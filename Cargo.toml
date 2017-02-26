@@ -5,6 +5,7 @@ version = "0.1.0"
 
 [dependencies]
 base64 = "*"
+libc = "*"
 rand = "*"
 ring = "*"
 serde = "*"
@@ -14,3 +15,7 @@ untrusted = "*"
 
 [dependencies.byteorder]
 path = "../byteorder"
+
+[lib]
+crate-type = ["staticlib"]
+name = "sshwire"
