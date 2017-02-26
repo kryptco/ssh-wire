@@ -22,3 +22,22 @@ pub extern "C" fn verify_signature(
     ) -> bool {
     false
 }
+
+
+/// Expose the JNI interface for android below
+#[cfg(target_os="android")]
+#[allow(non_snake_case)]
+pub mod android {
+    extern crate jni;
+
+    use super::*;
+    use self::jni::JNIEnv;
+    use self::jni::objects::{JClass, JString};
+    use self::jni::sys::{jint, jlong, jboolean};
+    use self::jni::strings::JNIString;
+
+    #[no_mangle]
+    pub unsafe extern "C" fn Java_co_krypt_kryptonite_protocol_HostAuth_verifySessionID(env: JNIEnv, _: JClass, pubkey : JNIString, signature: JNIString, session_id: JNIString) -> jboolean {
+        0
+    }
+}
