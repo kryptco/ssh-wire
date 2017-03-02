@@ -22,7 +22,7 @@ impl AsRef<Vec<u8>> for MPUint {
 
 impl MPUint {
     pub fn to_der(&self) -> Vec<u8> {
-        let INTEGER_TAG : u8 = 2;
+        const INTEGER_TAG : u8 = 2;
         let mut der_out = vec![INTEGER_TAG];
         if self.be_bytes.len() == 0 {
             der_out.extend(&[0x01, 0x00]);

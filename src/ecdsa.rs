@@ -1,13 +1,16 @@
 use mpint::*;
 use der::*;
+#[allow(unused_imports)]
+use ssh::Signature;
 use serde_de::Error;
 use serde_de::ErrorKind::*;
-use ssh::Signature;
+
 #[derive(Deserialize)]
+#[allow(dead_code)]
 pub struct ECDSAPublicKey {
     _type: String,
     curve: String,
-    public_key: Vec<u8>,
+    pub public_key: Vec<u8>,
 }
 
 #[derive(Deserialize)]
@@ -15,9 +18,9 @@ pub struct ECDSASha2Nistp256PublicKey {
     x: MPUint,
     y: MPUint,
 }
+const SEQUENCE_TAG : u8 = 0x30;
 impl ECDSASha2Nistp256PublicKey {
     pub fn to_der(&self) -> Vec<u8> {
-        let SEQUENCE_TAG = 0x30;
         let mut der_out = vec![SEQUENCE_TAG];
         let mut content = self.x.to_der();
         content.extend(self.y.to_der());
@@ -61,7 +64,6 @@ pub struct ECCurvePoint {
 
 impl ECCurvePoint {
     pub fn to_der(&self) -> Vec<u8> {
-        let SEQUENCE_TAG = 0x30;
         let mut der_out = vec![SEQUENCE_TAG];
         let mut content = self.x.to_der();
         content.extend(self.y.to_der());

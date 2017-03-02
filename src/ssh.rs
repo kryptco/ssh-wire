@@ -1,12 +1,8 @@
 use mpint::*;
-use der::*;
-use serde_de::Error;
-use serde_de::ErrorKind::*;
-use ecdsa::*;
 
 #[derive(Deserialize)]
 pub struct PublicKeyHeader {
-    _type: String,
+    pub _type: String,
 }
 
 #[derive(Deserialize)]
@@ -23,7 +19,7 @@ pub struct RSAPublicKey {
 }
 
 impl RSAPublicKey {
-    fn verify(&self, signature: &RSASignature, message: &[u8]) -> bool {
+    pub fn verify(&self, signature: &RSASignature, message: &[u8]) -> bool {
         use ring;
         use untrusted::Input;
         let res = ring::signature::primitive::verify_rsa(
@@ -41,12 +37,6 @@ impl RSAPublicKey {
 pub struct RSASignature {
     _type: String,
     signature: MPUint,
-}
-
-#[derive(Deserialize)]
-pub struct Ed25519PublicKey {
-    _type: String,
-    public_key: Vec<u8>,
 }
 
 #[cfg(test)]
