@@ -16,12 +16,19 @@ pub mod ssh;
 pub mod ed25519;
 
 #[no_mangle]
-pub extern "C" fn kr_verify_signature(
+    pub extern "C" fn kr_verify_signature(
     pubkey_ptr: *const u8, pubkey_len: usize,
     sig_ptr: *const u8, sig_len: usize,
     msg_ptr: *const u8, msg_len: usize,
-    ) -> bool {
-    false
+    ) -> u8 {
+    use std::slice::from_raw_parts;
+    let pubkey_bytes = unsafe { from_raw_parts(pubkey_ptr, pubkey_len) };
+    let sig_bytes = unsafe { from_raw_parts(sig_ptr, sig_len) };
+    let msg_bytes = unsafe { from_raw_parts(msg_ptr, msg_len) };
+    match verify_signature(pubkey_bytes, sig_bytes, msg_bytes) {
+        true => 1,
+        false => 0,
+    }
 }
 
 pub fn verify_signature(pubkey: &[u8], sig: &[u8], msg: &[u8]) -> bool {
