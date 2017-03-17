@@ -7,7 +7,7 @@ version = "0.1.0"
 base64 = "*"
 libc = "*"
 rand = "*"
-ring = { git = "https://github.com/kali/ring" }
+ring = "*"
 serde = "*"
 serde_codegen_internals = "*"
 serde_derive = "*"
