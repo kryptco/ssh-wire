@@ -46,11 +46,11 @@ mod test {
     #[test]
     fn parse_and_verify_rsa() {
         let rsa_public_key_bytes = base64::decode("AAAAB3NzaC1yc2EAAAADAQABAAABAQCy+nQ5jr9m4Mil8Llh6nqdN8uX25eljQfaoFdl8K1ufNt26BulxMn41prse+k5cDueL6w06xglVtx1FU4S8uhkbB2WZo05shnUvoNXU6hfQR0nT0Esfk8PqjOl69JVnV8NmVGtSmnMVgJNlvXdQrvvWcDYyI8RLR5bvVFrvMhjSOk8Vb81eJ5TqgJ/Ae+UsG1+uSjySORIuuv7vFsQNB93RE8d68LjQ6QDZB8j02UFNlwsGb+SKEufAlkOgGHTDS3P6lxZLc0AW5691vL58D253CpzNBcnu5llbrdfr/XKoOCQusMOclBN69LrbPWvTx6Tvs3CBwH7XY6WuATId+Wr").unwrap();
-        let mut rsa_public_key : RSAPublicKey = serde_de::from_slice(&rsa_public_key_bytes).unwrap();
+        let rsa_public_key : RSAPublicKey = serde_de::from_slice(&rsa_public_key_bytes).unwrap();
         assert!(rsa_public_key._type == "ssh-rsa");
 
         let rsa_sig_bytes = base64::decode("AAAAB3NzaC1yc2EAAAEADQc5AG5LwQyee6txeY+XvrQ8/+ihJ84vz4nK4Jtpv3r6efPvq20UgAbTzhx/03RGdo+nZtRumCWDFHrW45unEdcSHuzlrm9v9UVwpKseQO89SnDpA2Tt6UBlJZuVixkldlhFlmrun+GeAxYHxVLeSEL7oaZ/TicQnQFMCvcfD82YMUXxk81SIssEtUVyZOq9Qi2h37xwNz+sSYO37Hkof6nYuJ529DgxcRiJEzIRN03oNoglRi8IZz8LHBLxu3dr/jikxXkZ1/YFt/FMGjhDlp3Yxqj2CPxJ+uyfaCJgbLcgv8tfhSiE8DxOK/WMyP6bLxnC04AOcsrY7Cn9BdvMpw==").unwrap();
-        let mut rsa_signature: RSASignature = serde_de::from_slice(&rsa_sig_bytes).unwrap();
+        let rsa_signature: RSASignature = serde_de::from_slice(&rsa_sig_bytes).unwrap();
         assert!(rsa_signature._type == "ssh-rsa");
         assert!(rsa_signature.signature.as_ref().len() == rsa_public_key.modulus.as_ref().len());
 
