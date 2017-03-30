@@ -3,15 +3,13 @@
 set -euo pipefail
 
 # Build the rust project.
-#cargo clean
 cargo test
 
 #RUSTFLAGS="-C llvm-args=\"-fembed-bitcode\"" cargo lipo --release --verbose
 #BITCODE_GENERATION_MODE=bitcode cargo lipo --release --verbose
 cargo lipo --release --verbose
 
-test "$ANDROID_NDK"
-if [ "$?" != "0" ]; then
+if [ "${ANDROID_NDK:-}"="-" ]; then
 	echo "ANDROID_NDK unset, skipping android compilation";
 else
 	PATH=$ANDROID_NDK/arm/bin/:$PATH CC=arm-linux-androideabi-gcc CXX=arm-linux-androideabi-g++ cargo build --target arm-linux-androideabi --release
