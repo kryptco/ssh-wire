@@ -7,7 +7,7 @@ use serde::de;
 use serde::de::{Deserialize,Deserializer};
 
 //  Non-negative multi-precision integers in the SSH wire protocol begin with a \x00 byte to
-//  distinguish from negative. Some libraries like ring expect do not expect a leading \x00 byte,
+//  distinguish from negative. Some libraries like ring do not expect a leading \x00 byte,
 //  causing length checks to fail.
 #[derive(Debug)]
 pub struct MPUint {

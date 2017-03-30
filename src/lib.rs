@@ -45,11 +45,15 @@ pub fn verify_signature(pubkey: &[u8], sig: &[u8], msg: &[u8]) -> bool {
                 Ok(rsa_pk) => {
                     let sig = match serde_de::from_slice::<RSASignature>(sig) {
                         Ok(sig) => sig,
-                        _ => return false,
+                        _ => {
+                            return false;
+                        }
                     };
                     return rsa_pk.verify(&sig, msg);
                 }
-                _ => return false,
+                _ => {
+                    return false;
+                }
             }
         },
         "ssh-ed25519" => {
