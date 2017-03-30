@@ -36,7 +36,7 @@ mod test {
         let ed_pubkey_bytes = base64::decode("AAAAC3NzaC1lZDI1NTE5AAAAIK4WjSfJ9SmETrpAjw7+0znqMsHTXzY/b6AXCRoQzzuI").unwrap();
         let pubkey: Ed25519PublicKey = serde_de::from_slice(&ed_pubkey_bytes).unwrap();
 
-        let ed_sig_bytes = base64::decode("AAAAC3NzaC1lZDI1NTE5AAAAQFBf15H9MeZ32f3cgdfzicIM70teC23wMDVFN/+gRW73YyjiZpFamjJ56jjVv+fZVsoaijs42/RlOV/wMNI+3w8").unwrap();
+        let ed_sig_bytes = base64::decode("AAAAC3NzaC1lZDI1NTE5AAAAQFBf15H9MeZ32f3cgdfzicIM70teC23wMDVFN/+gRW73YyjiZpFamjJ56jjVv+fZVsoaijs42/RlOV/wMNI+3w8=").unwrap();
         let sig : Ed25519Signature = serde_de::from_slice(&ed_sig_bytes).unwrap();
 
         assert!(pubkey.verify(&sig, &message_bytes));

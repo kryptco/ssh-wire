@@ -148,3 +148,15 @@ pub mod android {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    #[test]
+    fn test_invalid_ecdsa_pk_equals_sig() {
+        assert!(verify_signature(
+            &base64::decode("AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFsz+iDSG34GRKn6M6qhbn7BTQrRcz5l+ZE9sbcBvvUJlGahkvGscr/y2ucl85XQFYkGdV04cfNr1jMoDicQHRM=").unwrap(),
+            &base64::decode("AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFsz+iDSG34GRKn6M6qhbn7BTQrRcz5l+ZE9sbcBvvUJlGahkvGscr/y2ucl85XQFYkGdV04cfNr1jMoDicQHRM=").unwrap(),
+            &base64::decode("AAAAILqtiL9S+34rm3Jetl4QpbCUFmeLNM31u6go/e702npgAAAAAAVrZXZpbgo=").unwrap()) == false);
+    }
+}

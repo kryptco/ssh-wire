@@ -178,16 +178,19 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
     fn deserialize_bytes<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
         where V: de::Visitor {
             let len = self.reader.read_u32::<BigEndian>()?;
-            let mut buf = vec![0; len as usize];
             if len > MAX_FIELD_LENGTH {
                 return Err(Error{kind: InvalidLength});
             }
+            let mut buf = vec![0; len as usize];
             self.reader.read_exact(&mut buf)?;
             visitor.visit_bytes(&buf)
     }
     fn deserialize_byte_buf<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
         where V: de::Visitor {
             let len = self.reader.read_u32::<BigEndian>()?;
+            if len > MAX_FIELD_LENGTH {
+                return Err(Error{kind: InvalidLength});
+            }
             let mut buf = vec![0; len as usize];
             self.reader.read_exact(&mut buf)?;
             visitor.visit_byte_buf(buf)
