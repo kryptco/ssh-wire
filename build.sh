@@ -9,7 +9,7 @@ cargo test
 #BITCODE_GENERATION_MODE=bitcode cargo lipo --release --verbose
 cargo lipo --release --verbose
 
-if [ "${ANDROID_NDK:-}"="-" ]; then
+if [ ${ANDROID_NDK:-"-"} = "-" ]; then
 	echo "ANDROID_NDK unset, skipping android compilation";
 else
 	PATH=$ANDROID_NDK/arm/bin/:$PATH CC=arm-linux-androideabi-gcc CXX=arm-linux-androideabi-g++ cargo build --target arm-linux-androideabi --release
