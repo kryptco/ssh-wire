@@ -14,6 +14,7 @@ pub mod mpint;
 pub mod ecdsa;
 pub mod ssh;
 pub mod ed25519;
+pub mod rsa;
 
 #[no_mangle]
     pub extern "C" fn kr_verify_signature(
@@ -35,6 +36,7 @@ pub fn verify_signature(pubkey: &[u8], sig: &[u8], msg: &[u8]) -> bool {
     use ssh::*;
     use ed25519::*;
     use ecdsa::*;
+    use rsa::*;
     let pk_header = match serde_de::from_slice::<PublicKeyHeader>(pubkey) {
         Ok(pk) => pk,
         _ => return false,
