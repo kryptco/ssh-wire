@@ -15,6 +15,7 @@ pub mod ecdsa;
 pub mod ssh;
 pub mod ed25519;
 pub mod rsa;
+pub mod dss;
 
 #[no_mangle]
     pub extern "C" fn kr_verify_signature(
