@@ -48,11 +48,11 @@ impl MPUint {
     }
 }
 
-impl Deserialize for MPUint {
+impl<'x> Deserialize<'x> for MPUint {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-        where D: Deserializer {
+        where D: Deserializer<'x> {
             struct MPUintVisitor;
-            impl de::Visitor for MPUintVisitor {
+            impl<'x: 'x> de::Visitor<'x> for MPUintVisitor {
                 type Value = MPUint;
 
                 fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {

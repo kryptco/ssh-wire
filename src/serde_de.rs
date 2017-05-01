@@ -77,8 +77,8 @@ impl fmt::Display for Error {
      }
 }
 
-pub fn from_slice<T>(bytes: &[u8]) -> Result<T, Error> 
-    where T: serde::Deserialize {
+pub fn from_slice<'x, T>(bytes: &[u8]) -> Result<T, Error> 
+    where T: serde::Deserialize<'x> {
     let mut deserializer = Deserializer{reader: std::io::Cursor::new(bytes.to_vec())};
     serde::Deserialize::deserialize(&mut deserializer)
 }   
@@ -87,14 +87,10 @@ pub struct Deserializer<R> {
     reader: R,
 }
 
-impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
+impl<'x ,'a, R: Read> de::Deserializer<'x> for &'a mut Deserializer<R> {
     type Error = Error;
-    fn deserialize<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
-            Err(Error{kind: DeserializeUnsupported})
-        }
     fn deserialize_bool<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             match self.reader.read_u8()? {
                 0 => visitor.visit_bool(false),
                 _ => visitor.visit_bool(true),
@@ -102,60 +98,60 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
         }
 
     fn deserialize_u8<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             visitor.visit_u8(self.reader.read_u8()?)
     }
 
     fn deserialize_u16<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_u32<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             visitor.visit_u32(self.reader.read_u32::<BigEndian>()?)
     }
 
     fn deserialize_u64<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             visitor.visit_u64(self.reader.read_u64::<BigEndian>()?)
     }
 
     fn deserialize_i8<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_i16<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_i32<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_i64<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_f32<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_f64<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     
     fn deserialize_char<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_str<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             let len = self.reader.read_u32::<BigEndian>()?;
             if len > MAX_FIELD_LENGTH {
                 return Err(Error{kind: InvalidLength});
@@ -165,7 +161,7 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
             visitor.visit_str(std::str::from_utf8(&buf)?)
     }
     fn deserialize_string<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             let len = self.reader.read_u32::<BigEndian>()?;
             if len > MAX_FIELD_LENGTH {
                 return Err(Error{kind: InvalidLength});
@@ -176,7 +172,7 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
     }
 
     fn deserialize_bytes<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             let len = self.reader.read_u32::<BigEndian>()?;
             if len > MAX_FIELD_LENGTH {
                 return Err(Error{kind: InvalidLength});
@@ -186,7 +182,7 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
             visitor.visit_bytes(&buf)
     }
     fn deserialize_byte_buf<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             let len = self.reader.read_u32::<BigEndian>()?;
             if len > MAX_FIELD_LENGTH {
                 return Err(Error{kind: InvalidLength});
@@ -197,47 +193,45 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
     }
 
     fn deserialize_option<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_unit<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_unit_struct<V>(self, _: &'static str, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_newtype_struct<V>(self, _: &'static str, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 
     fn deserialize_seq<V>(self, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             let len: u32 = serde::de::Deserialize::deserialize(&mut *self)?;
-            self.deserialize_seq_fixed_size(len as usize, visitor)
+            self.deserialize_tuple(len as usize, visitor)
     }
 
-    fn deserialize_seq_fixed_size<V>(self,
+    fn deserialize_tuple<V>(self,
                             len: usize,
                             visitor: V) -> Result<V::Value, Self::Error>
-        where V: serde::de::Visitor,
+        where V: serde::de::Visitor<'x>,
     {
         if len > MAX_FIELD_LENGTH as usize {
             return Err(Error{kind: InvalidLength});
         }
-        struct SeqVisitor<'a, R: Read + 'a> {
+        struct Concatenated<'a, R: Read + 'a> {
             deserializer: &'a mut Deserializer<R>,
             len: u32,
         }
 
-        impl<'a, 'b: 'a, R: Read + 'b> serde::de::SeqVisitor for SeqVisitor<'a, R> {
+        impl<'x: 'x, 'a, 'b: 'a, R: Read + 'b> serde::de::SeqAccess<'x> for Concatenated<'a, R> {
             type Error = Error;
 
-            fn visit_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>, Self::Error>
-                where T: serde::de::DeserializeSeed,
-            {
+            fn next_element_seed<T: de::DeserializeSeed<'x>>(&mut self, seed: T) -> Result<Option<T::Value>, Self::Error> {
                 if self.len > 0 {
                     self.len -= 1;
                     let value = try!(serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer));
@@ -247,49 +241,36 @@ impl<'a, R: Read> de::Deserializer for &'a mut Deserializer<R> {
                 }
             }
         }
-
-        visitor.visit_seq(SeqVisitor { deserializer: self, len: len as u32})
+        visitor.visit_seq(Concatenated { deserializer: self, len: len as u32})
     }
-    fn deserialize_tuple<V>(self, _: usize, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
-            struct TupleVisitor<'a, R: Read + 'a>(&'a mut Deserializer<R>);
 
-            impl<'a, 'b: 'a, R: Read + 'b> serde::de::SeqVisitor for TupleVisitor<'a, R> {
-                type Error = Error;
-
-                fn visit_seed<T>(&mut self, seed: T) -> Result<Option<T::Value>, Self::Error>
-                    where T: serde::de::DeserializeSeed,
-                          {
-                              let value = try!(serde::de::DeserializeSeed::deserialize(seed, &mut *self.0));
-                              Ok(Some(value))
-                          }
-            }
-
-            visitor.visit_seq(TupleVisitor(self))
-    }
     fn deserialize_tuple_struct<V>(self, _: &'static str, len: usize, visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             self.deserialize_tuple(len, visitor)
     }
 
     fn deserialize_map<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_struct<V>(self, _: &'static str, fields: &'static [&'static str], visitor: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             self.deserialize_tuple(fields.len(), visitor)
     }
-    fn deserialize_struct_field<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+    fn deserialize_identifier<V>(self, _: V) -> Result<V::Value, Self::Error> 
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_enum<V>(self, _enum: &'static str, _: &'static [&'static str], _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
     fn deserialize_ignored_any<V>(self, _: V) -> Result<V::Value, Self::Error> 
-        where V: de::Visitor {
+        where V: de::Visitor<'x> {
+            Err(Error{kind: UnsupportedType})
+    }
+    fn deserialize_any<V>(self, _: V) -> Result<V::Value, Self::Error>
+        where V: de::Visitor<'x> {
             Err(Error{kind: UnsupportedType})
     }
 }
