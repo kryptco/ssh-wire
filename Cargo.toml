@@ -5,19 +5,25 @@ version = "0.1.0"
 
 [dependencies]
 base64 = "*"
+byteorder = "*"
 libc = "*"
 rand = "*"
-ring = { git = "https://github.com/kryptco/ring" }
+ring = "0.9.1"
 serde = "*"
 serde_codegen_internals = "*"
 serde_derive = "*"
 untrusted = "*"
-byteorder = "*"
 
 [lib]
 crate-type = ["staticlib", "cdylib"]
 name = "sshwire"
 
-[target.'cfg(target_os="android")'.dependencies.jni]
-git = "https://github.com/prevoty/jni-rs"
+[target]
+
+[target."cfg(target_os=\"android\")"]
+
+[target."cfg(target_os=\"android\")".dependencies]
+
+[target."cfg(target_os=\"android\")".dependencies.jni]
 default-features = false
+git = "https://github.com/prevoty/jni-rs"
