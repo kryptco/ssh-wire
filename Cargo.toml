@@ -14,7 +14,7 @@ serde_derive = "1.0.2"
 untrusted = "*"
 
 [lib]
-crate-type = ["staticlib", "cdylib"]
+crate-type = ["staticlib", "cdylib", "rlib"]
 name = "sshwire"
 
 [target]
