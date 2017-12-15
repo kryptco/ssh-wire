@@ -5,4 +5,4 @@ Performs SSH host signature verifiation
 
 #	Build Instructions
 Follow these instructions for [setting up the rust ios/android toolchains](https://github.com/kennytm/rust-ios-android).
-Run `ANDROID_NDK=<path to android ndk> ./build.sh` (ANDROID\_NDK not needed when building for iOS)
+Run `ANDROID_NDK=<path to android ndk built by rust-ios-android> ./build.sh` (ANDROID\_NDK not needed when building for iOS)
