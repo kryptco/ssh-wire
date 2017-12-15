@@ -8,10 +8,10 @@ base64 = "*"
 byteorder = "*"
 libc = "*"
 rand = "*"
-ring = "*"
+ring = {git = "https://github.com/kcking/ring"}
 serde = "1.0.2"
 serde_derive = "1.0.2"
-untrusted = "*"
+untrusted = "0.6"
 
 [lib]
 crate-type = ["staticlib", "cdylib", "rlib"]
