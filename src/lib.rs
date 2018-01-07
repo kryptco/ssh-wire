@@ -127,7 +127,7 @@ pub mod android {
     }
 
     #[no_mangle]
-    pub unsafe extern "C" fn Java_co_krypt_kryptonite_protocol_HostAuth_verifySessionID(env: JNIEnv, _: JClass, pubkey : JString, signature: JString, session_id: JString) -> jboolean {
+    pub unsafe extern "C" fn Java_co_krypt_krypton_protocol_HostAuth_verifySessionID(env: JNIEnv, _: JClass, pubkey : JString, signature: JString, session_id: JString) -> jboolean {
         let pk_bytes = match b64_jstring_to_bytes(&env, pubkey) {
             Some(bytes) => bytes,
             _ => return 0,
