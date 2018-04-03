@@ -8,7 +8,7 @@ base64 = "*"
 byteorder = "*"
 libc = "*"
 rand = "*"
-ring = {git = "https://github.com/kcking/ring"}
+ring = {git = "https://github.com/kryptco/ring"}
 serde = "1.0.2"
 serde_derive = "1.0.2"
 untrusted = "0.6"
