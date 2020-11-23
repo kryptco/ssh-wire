@@ -4,7 +4,6 @@ extern crate serde_derive;
 
 extern crate byteorder;
 extern crate ring;
-extern crate untrusted;
 extern crate base64;
 extern crate libc;
 

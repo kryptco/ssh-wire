@@ -9,11 +9,11 @@ pub struct RSAPublicKey {
 
 impl RSAPublicKey {
     pub fn verify(&self, signature: &RSASignature, message: &[u8]) -> bool {
-        use ring;
-        use untrusted::Input;
+        use ring::signature;
+
         let params = match signature._type.as_ref() {
             "ssh-rsa" => {
-                &ring::signature::RSA_PKCS1_2048_8192_SHA1
+                &ring::signature::RSA_PKCS1_2048_8192_SHA1_FOR_LEGACY_USE_ONLY
             },
             "rsa-sha2-256" => {
                 &ring::signature::RSA_PKCS1_2048_8192_SHA256
@@ -25,12 +25,13 @@ impl RSAPublicKey {
                 return false;
             },
         };
-        ring::signature::primitive::verify_rsa(
-            params,
-            (Input::from(self.modulus.as_ref()), Input::from(self.public_exponent.as_ref())),
-            Input::from(message),
-            Input::from(signature.signature.padded_to_at_least(self.modulus.as_ref().len()).as_ref()),
-            ).is_ok()
+
+        let public_key = ring::signature::RsaPublicKeyComponents {
+            n: self.modulus.as_ref(),
+            e: self.public_exponent.as_ref()
+        };
+
+        public_key.verify(params, message, signature.signature.padded_to_at_least(self.modulus.as_ref().len()).as_ref()).is_ok()
     }
 }
 

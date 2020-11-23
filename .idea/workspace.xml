@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86651895-150f-473d-8e81-50d57a9477a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ecdsa.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ecdsa.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ed25519.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ed25519.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rsa.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rsa.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/serde_de.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/serde_de.rs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="t2amo7ax" />
+  </component>
+  <component name="ProjectId" id="1jIxrhVn92v9GaSE4jUu54hhWBI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="check" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="check" />
+      <option name="allFeatures" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86651895-150f-473d-8e81-50d57a9477a1" name="Default Changelist" comment="" />
+      <created>1603505610766</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603505610766</updated>
+      <workItem from="1603505613781" duration="1762000" />
+      <workItem from="1603737267230" duration="1469000" />
+      <workItem from="1606089853101" duration="1855000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="781" y="356" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603731741505">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="781" y="356" width="1071" height="700" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1417/2560.23.3440.1417@0.23.2560.1417" timestamp="1603731741505" />
+    <state width="2177" height="325" key="GridCell.Tab.0.bottom" timestamp="1606091615639">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2177" height="325" key="GridCell.Tab.0.bottom/0.23.2560.1417/2560.-1157.1440.3417@0.23.2560.1417" timestamp="1606091615639" />
+    <state width="2177" height="325" key="GridCell.Tab.0.bottom/0.23.2560.1417/2560.23.3440.1417@0.23.2560.1417" timestamp="1603735493696" />
+    <state width="2177" height="325" key="GridCell.Tab.0.center" timestamp="1606091615638">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2177" height="325" key="GridCell.Tab.0.center/0.23.2560.1417/2560.-1157.1440.3417@0.23.2560.1417" timestamp="1606091615638" />
+    <state width="2177" height="325" key="GridCell.Tab.0.center/0.23.2560.1417/2560.23.3440.1417@0.23.2560.1417" timestamp="1603735493691" />
+    <state width="2177" height="325" key="GridCell.Tab.0.left" timestamp="1606091615637">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2177" height="325" key="GridCell.Tab.0.left/0.23.2560.1417/2560.-1157.1440.3417@0.23.2560.1417" timestamp="1606091615637" />
+    <state width="2177" height="325" key="GridCell.Tab.0.left/0.23.2560.1417/2560.23.3440.1417@0.23.2560.1417" timestamp="1603735493689" />
+    <state width="2177" height="325" key="GridCell.Tab.0.right" timestamp="1606091615639">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2177" height="325" key="GridCell.Tab.0.right/0.23.2560.1417/2560.-1157.1440.3417@0.23.2560.1417" timestamp="1606091615639" />
+    <state width="2177" height="325" key="GridCell.Tab.0.right/0.23.2560.1417/2560.23.3440.1417@0.23.2560.1417" timestamp="1603735493692" />
+  </component>
+</project>

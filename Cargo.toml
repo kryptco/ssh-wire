@@ -8,10 +8,10 @@ base64 = "*"
 byteorder = "*"
 libc = "*"
 rand = "*"
-ring = {git = "https://github.com/kryptco/ring"}
+ring = "0.17.0-alpha.4"
 serde = "1.0.2"
 serde_derive = "1.0.2"
-untrusted = "0.6"
+
 
 [lib]
 crate-type = ["staticlib", "cdylib", "rlib"]

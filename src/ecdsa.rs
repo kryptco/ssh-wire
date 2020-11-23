@@ -45,14 +45,11 @@ impl ECDSASha2Nistp256PublicKey {
         })
     }
     pub fn verify(&self, signature: &ECCurvePoint, message: &[u8]) -> bool {
-        use ring;
-        use untrusted::Input;
-        ring::signature::verify(
-            &ring::signature::ECDSA_P256_SHA256_ASN1, 
-            Input::from(&self.to_x962_uncompressed()),
-            Input::from(message),
-            Input::from(&signature.to_der()),
-            ).is_ok()
+        use ring::signature;
+        let raw_pk = self.to_x962_uncompressed();
+        let public_key = signature::UnparsedPublicKey::new(&signature::ECDSA_P256_SHA256_ASN1,
+                                                          &raw_pk);
+        public_key.verify(message, &signature.to_der()).is_ok()
     }
 }
 

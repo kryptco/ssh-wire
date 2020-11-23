@@ -234,7 +234,7 @@ impl<'x ,'a, R: Read> de::Deserializer<'x> for &'a mut Deserializer<R> {
             fn next_element_seed<T: de::DeserializeSeed<'x>>(&mut self, seed: T) -> Result<Option<T::Value>, Self::Error> {
                 if self.len > 0 {
                     self.len -= 1;
-                    let value = try!(serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer));
+                    let value = serde::de::DeserializeSeed::deserialize(seed, &mut *self.deserializer)?;
                     Ok(Some(value))
                 } else {
                     Ok(None)
