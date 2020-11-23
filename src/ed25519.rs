@@ -6,14 +6,10 @@ pub struct Ed25519PublicKey {
 
 impl Ed25519PublicKey {
     pub fn verify(&self, signature: &Ed25519Signature, message: &[u8]) -> bool {
-        use ring;
-        use untrusted::Input;
-        ring::signature::verify(
-            &ring::signature::ED25519, 
-            Input::from(&self.public_key),
-            Input::from(message),
-            Input::from(&signature.signature),
-            ).is_ok()
+        use ring::signature;
+        let public_key = signature::UnparsedPublicKey::new(&ring::signature::ED25519,
+                                                           &self.public_key);
+        public_key.verify(message, &signature.signature).is_ok()
     }
 }
 
